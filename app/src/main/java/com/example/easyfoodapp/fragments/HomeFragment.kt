@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.domain.entites.categoryEntity.Category
 import com.example.domain.entites.mealsByCategoryEntity.MealsByCategory
 import com.example.domain.entites.mealEntity.Meal
+import com.example.easyfoodapp.activities.CategoriesListActivity
 import com.example.easyfoodapp.viewModels.HomeViewModel
 import com.example.easyfoodapp.activities.MealsActivity
 import com.example.easyfoodapp.adapters.CategoriesAdapter
@@ -34,6 +35,8 @@ class HomeFragment : Fragment() {
         const val selectedMeal_id = "selected_meal_id"
         const val selectedMeal_name = "selected_meal_name"
         const val selectedMeal_thumb = "selected_meal_thumb"
+        const val selected_category_name = "selected_category_name"
+        const val selected_category_count = "selected_category_count"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,6 +132,10 @@ class HomeFragment : Fragment() {
     private fun onCategoryClick() {
         categoriesAdapter.onItemClick = {
             viewModel.getPopularMeals(it.strCategory)
+            val i = Intent(activity, CategoriesListActivity::class.java)
+            i.putExtra(selected_category_name, it.strCategory)
+            i.putExtra(selected_category_count, popularItemsAdapter.itemCount.toString())
+            startActivity(i)
         }
     }
 

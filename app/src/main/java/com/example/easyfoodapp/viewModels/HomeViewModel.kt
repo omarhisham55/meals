@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(
         try {
             getRandomMealUseCase().enqueue(object : Callback<MealsList> {
                 override fun onResponse(call: Call<MealsList>, response: Response<MealsList>) {
-                    if (response.body() != null) {
+                    response.body()?.let {
                         _randomMeal.value = response.body()!!.meals[0]
                     }
                     return
@@ -58,7 +58,7 @@ class HomeViewModel @Inject constructor(
                 call: Call<MealsByCategoryList>,
                 response: Response<MealsByCategoryList>
             ) {
-                if (response.body() != null) {
+                response.body()?.let {
                     _popularMeals.value = response.body()!!.meals
                 }
                 return
@@ -80,9 +80,8 @@ class HomeViewModel @Inject constructor(
                 call: Call<CategoryList>,
                 response: Response<CategoryList>
             ) {
-                if (response.body() != null) {
+                response.body()?.let {
                     _categories.value = response.body()!!.categories
-                    Log.d("zaza category res", _categories.value!![0].toString())
                 }
                 return
             }
