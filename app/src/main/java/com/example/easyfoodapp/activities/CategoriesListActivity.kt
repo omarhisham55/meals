@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
+import android.widget.ListAdapter
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.domain.entites.mealsByCategoryEntity.MealsByCategory
+import com.example.easyfoodapp.R
 import com.example.easyfoodapp.adapters.CategoryListAdapter
+import com.example.easyfoodapp.adapters.GridSpacingItemDecoration
 import com.example.easyfoodapp.databinding.ActivityCategoryBinding
 import com.example.easyfoodapp.fragments.HomeFragment
 import com.example.easyfoodapp.viewModels.CategoryViewModel
@@ -44,8 +47,10 @@ class CategoriesListActivity : AppCompatActivity() {
     }
 
     private fun initCategoryRecyclerView() {
+        val spacing = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._10sdp)
         bind.categoryGridview.apply {
             layoutManager = GridLayoutManager(applicationContext, 2)
+            bind.categoryGridview.addItemDecoration(GridSpacingItemDecoration(2, spacing, true))
             adapter = categoryListAdapter
         }
     }
