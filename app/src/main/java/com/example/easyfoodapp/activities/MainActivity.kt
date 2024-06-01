@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.example.easyfoodapp.R
+import com.example.easyfoodapp.viewModels.HomeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -2,6 +2,7 @@ package com.example.easyfoodapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ import com.example.easyfoodapp.activities.MealsActivity
 import com.example.easyfoodapp.adapters.CategoriesAdapter
 import com.example.easyfoodapp.adapters.MostPopularAdapter
 import com.example.easyfoodapp.databinding.FragmentHomeBinding
+import com.example.easyfoodapp.viewModels.MealsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -110,11 +112,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun onPopularMealClick() {
-        popularItemsAdapter.onItemClick = {
+        popularItemsAdapter.onItemClick = { mealByCategory ->
             val i = Intent(activity, MealsActivity::class.java)
-            i.putExtra(selectedMeal_id, it.idMeal)
-            i.putExtra(selectedMeal_name, it.strMeal)
-            i.putExtra(selectedMeal_thumb, it.strMealThumb)
+            i.putExtra(selectedMeal_id, mealByCategory.idMeal)
+            i.putExtra(selectedMeal_name, mealByCategory.strMeal)
+            i.putExtra(selectedMeal_thumb, mealByCategory.strMealThumb)
             startActivity(i)
         }
     }

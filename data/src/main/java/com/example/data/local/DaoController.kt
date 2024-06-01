@@ -6,19 +6,20 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.domain.entites.mealEntity.Meal
 
 //@Target(AnnotationTarget.CLASS)
 //@Retention(AnnotationRetention.BINARY)
 //annotation class TableName(val name: String)
 
 @Dao
-interface DaoController<T> {
+interface DaoController {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertMeal(item: T)
+    suspend fun upsertMeal(item: Meal)
 
     @Delete
-    suspend fun deleteMeal(item: T)
+    suspend fun deleteMeal(item: Meal)
 
-    @Query(value = "select * from (select :tableName)")
-    fun getMealsFromDatabase(tableName: String): LiveData<List<T>>
+    @Query(value = "select * from mealInformation")
+    fun getMeals(): LiveData<List<Meal>>
 }

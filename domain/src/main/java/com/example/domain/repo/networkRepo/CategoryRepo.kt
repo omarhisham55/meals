@@ -1,4 +1,4 @@
-package com.example.domain.repo
+package com.example.domain.repo.networkRepo
 
 import com.example.domain.entites.categoryEntity.CategoryList
 import retrofit2.Call

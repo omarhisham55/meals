@@ -1,14 +1,17 @@
 package com.example.easyfoodapp.dpi
 
+import com.example.data.local.db.MealDatabase
 import com.example.data.remote.ApiService
-import com.example.data.repo.CategoryRepoImpl
-import com.example.data.repo.MealRepoByIdImpl
-import com.example.data.repo.PopularMealsRepoImpl
-import com.example.data.repo.RandomMealRepoImpl
-import com.example.domain.repo.CategoryRepo
-import com.example.domain.repo.MealRepoById
-import com.example.domain.repo.PopularItemRepo
-import com.example.domain.repo.RandomMealRepo
+import com.example.data.repo.localRepos.LocalRepoImpl
+import com.example.data.repo.netwrokRepos.CategoryRepoImpl
+import com.example.data.repo.netwrokRepos.MealRepoByIdImpl
+import com.example.data.repo.netwrokRepos.PopularMealsRepoImpl
+import com.example.data.repo.netwrokRepos.RandomMealRepoImpl
+import com.example.domain.repo.localRepo.LocalRepo
+import com.example.domain.repo.networkRepo.CategoryRepo
+import com.example.domain.repo.networkRepo.MealRepoById
+import com.example.domain.repo.networkRepo.PopularItemRepo
+import com.example.domain.repo.networkRepo.RandomMealRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,5 +38,10 @@ object RepoModule {
     @Provides
     fun provideRepoModuleCategory(apiService: ApiService): CategoryRepo {
         return CategoryRepoImpl(apiService)
+    }
+
+    @Provides
+    fun provideLocalRepoModule(db: MealDatabase): LocalRepo {
+        return LocalRepoImpl(db)
     }
 }

@@ -11,9 +11,10 @@ import com.example.domain.entites.mealsByCategoryEntity.MealsByCategory
 import com.example.domain.entites.mealsByCategoryEntity.MealsByCategoryList
 import com.example.domain.entites.mealEntity.Meal
 import com.example.domain.entites.mealEntity.MealsList
-import com.example.domain.usecase.GetCategoryUseCase
-import com.example.domain.usecase.GetPopularMealsUseCase
-import com.example.domain.usecase.GetRandomMealUseCase
+import com.example.domain.usecase.localUseCases.LocalUseCase
+import com.example.domain.usecase.networkUseCases.GetCategoryUseCase
+import com.example.domain.usecase.networkUseCases.GetPopularMealsUseCase
+import com.example.domain.usecase.networkUseCases.GetRandomMealUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -25,7 +26,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getRandomMealUseCase: GetRandomMealUseCase,
     private val getPopularMealsUseCase: GetPopularMealsUseCase,
-    private val getCategoryUseCase: GetCategoryUseCase
+    private val getCategoryUseCase: GetCategoryUseCase,
+    private val localUseCase: LocalUseCase,
 ) : ViewModel() {
     //get random meal
     private var _randomMeal = MutableLiveData<Meal>()
@@ -55,8 +57,7 @@ class HomeViewModel @Inject constructor(
     fun getPopularMeals(name: String = "Seafood") = viewModelScope.launch {
         getPopularMealsUseCase(name).enqueue(object : Callback<MealsByCategoryList> {
             override fun onResponse(
-                call: Call<MealsByCategoryList>,
-                response: Response<MealsByCategoryList>
+                call: Call<MealsByCategoryList>, response: Response<MealsByCategoryList>
             ) {
                 response.body()?.let {
                     _popularMeals.value = response.body()!!.meals
@@ -77,8 +78,7 @@ class HomeViewModel @Inject constructor(
     fun getCategories() = viewModelScope.launch {
         getCategoryUseCase().enqueue(object : Callback<CategoryList> {
             override fun onResponse(
-                call: Call<CategoryList>,
-                response: Response<CategoryList>
+                call: Call<CategoryList>, response: Response<CategoryList>
             ) {
                 response.body()?.let {
                     _categories.value = response.body()!!.categories
@@ -93,4 +93,11 @@ class HomeViewModel @Inject constructor(
     }
 
     fun observeCategories(): LiveData<List<Category>> = _categories
+
+    //get favorite list
+    private var _favoritesMeals = localUseCase.getMeals()
+
+    fun observeFavMeals(): LiveData<List<Meal>> = _favoritesMeals
+
+
 }

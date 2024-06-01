@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entites.mealsByCategoryEntity.MealsByCategory
 import com.example.domain.entites.mealsByCategoryEntity.MealsByCategoryList
-import com.example.domain.usecase.GetPopularMealsUseCase
+import com.example.domain.usecase.networkUseCases.GetPopularMealsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call

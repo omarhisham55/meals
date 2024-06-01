@@ -7,7 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entites.mealEntity.Meal
 import com.example.domain.entites.mealEntity.MealsList
-import com.example.domain.usecase.GetMealByIdUseCase
+import com.example.domain.usecase.localUseCases.LocalUseCase
+import com.example.domain.usecase.networkUseCases.GetMealByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MealsViewModel @Inject constructor(
-    private val getMealByIdUseCase: GetMealByIdUseCase
+    private val getMealByIdUseCase: GetMealByIdUseCase,
+    private val localUseCase: LocalUseCase
 ) : ViewModel() {
     private var _mealDetail = MutableLiveData<Meal>()
     fun getMealById(id: String) = viewModelScope.launch {
@@ -36,4 +38,17 @@ class MealsViewModel @Inject constructor(
     }
 
     fun observeMealById(): LiveData<Meal> = _mealDetail
+
+    fun addMealToFavorites(meal: Meal) {
+        viewModelScope.launch {
+            localUseCase.upsertMeal(meal)
+        }
+    }
+
+    fun deleteMealFromFavorites(meal: Meal) {
+        viewModelScope.launch {
+            localUseCase.deleteMeal(meal)
+        }
+    }
+
 }

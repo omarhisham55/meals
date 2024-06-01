@@ -9,22 +9,26 @@ import com.example.data.local.DaoController
 import com.example.data.local.MealTypeConverter
 import com.example.domain.entites.mealEntity.Meal
 
+
 @Database([Meal::class], version = 1)
 @TypeConverters(MealTypeConverter::class)
 abstract class MealDatabase : RoomDatabase() {
-    abstract fun mealDao(): DaoController<Meal>
-
     companion object {
         @Volatile
         var instance: MealDatabase? = null
 
-        @Synchronized
+        //        @Synchronized
         fun getRoomInstance(context: Context): MealDatabase {
-            if (instance == null) {
-                instance = Room.databaseBuilder(context, MealDatabase::class.java, "meal.db")
+            return instance ?: synchronized(this) {
+                Room.databaseBuilder(
+                    context.applicationContext,
+                    MealDatabase::class.java,
+                    "meal.db"
+                )
                     .fallbackToDestructiveMigration().build()
             }
-            return instance as MealDatabase
         }
     }
+
+    abstract fun mealDao(): DaoController
 }

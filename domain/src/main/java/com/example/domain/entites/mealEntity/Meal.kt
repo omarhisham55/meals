@@ -2,6 +2,7 @@ package com.example.domain.entites.mealEntity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+
 //import com.example.data.local.TableName
 
 @Entity("mealInformation")
@@ -61,4 +62,10 @@ data class Meal(
     val strSource: String?,
     val strTags: Any?,
     val strYoutube: String?
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Meal) return false
+        return idMeal == other.idMeal
+    }
+}
