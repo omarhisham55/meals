@@ -10,6 +10,7 @@ import com.example.easyfoodapp.databinding.PopularItemBinding
 class MostPopularAdapter() : RecyclerView.Adapter<MostPopularAdapter.ViewHolder>() {
     private var items = ArrayList<MealsByCategory>()
     lateinit var onItemClick: ((MealsByCategory) -> Unit)
+    var onItemLongClick: ((MealsByCategory) -> Unit)? = null
 
     fun setItems(items: ArrayList<MealsByCategory>) {
         this.items = items
@@ -30,6 +31,10 @@ class MostPopularAdapter() : RecyclerView.Adapter<MostPopularAdapter.ViewHolder>
         holder.bind(items[position])
         holder.itemView.setOnClickListener {
             onItemClick.invoke(items[position])
+        }
+        holder.itemView.setOnLongClickListener {
+            onItemLongClick?.invoke(items[position])
+            true
         }
     }
 

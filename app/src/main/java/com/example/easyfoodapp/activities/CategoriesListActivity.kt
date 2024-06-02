@@ -34,6 +34,8 @@ class CategoriesListActivity : AppCompatActivity() {
         observeCategoryList()
         onItemClick()
 
+        onBackPress()
+
     }
 
     private fun onItemClick() {
@@ -70,8 +72,8 @@ class CategoriesListActivity : AppCompatActivity() {
 
     private fun getCategoryInfoFromIntent() {
         val i = intent
-        categoryName = i.getStringExtra(HomeFragment.selected_category_name)!!
-        categoryCount = i.getStringExtra(HomeFragment.selected_category_count)!!
+        categoryName = i.getStringExtra(HomeFragment.selected_category_name) ?: ""
+        categoryCount = i.getStringExtra(HomeFragment.selected_category_count) ?: "0"
         setTitleInViews()
     }
 
@@ -83,5 +85,11 @@ class CategoriesListActivity : AppCompatActivity() {
     private fun onResponse() {
         bind.categoryProgressBar.visibility = INVISIBLE
         bind.categoryGridview.visibility = VISIBLE
+    }
+
+    private fun onBackPress() {
+        bind.backButton.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 }

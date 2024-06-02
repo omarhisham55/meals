@@ -1,6 +1,7 @@
 package com.example.easyfoodapp.activities
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,15 +11,17 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.example.domain.entites.mealEntity.Meal
+import com.example.easyfoodapp.R
 import com.example.easyfoodapp.databinding.ActivityMealsBinding
 import com.example.easyfoodapp.fragments.HomeFragment
 import com.example.easyfoodapp.viewModels.HomeViewModel
 import com.example.easyfoodapp.viewModels.MealsViewModel
+import com.google.android.material.appbar.CollapsingToolbarLayout.TitleCollapseMode
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MealsActivity : AppCompatActivity() {
-    private val viewModel: MealsViewModel by viewModels()
+    val viewModel: MealsViewModel by viewModels()
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var bind: ActivityMealsBinding
     private lateinit var mealId: String
@@ -42,6 +45,14 @@ class MealsActivity : AppCompatActivity() {
 
         addToFav()
         removeFromFav()
+
+        onBackPress()
+    }
+
+    private fun onBackPress() {
+        bind.backButton.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun addToFav() {
@@ -71,7 +82,7 @@ class MealsActivity : AppCompatActivity() {
     }
 
     private fun observeFavMeals() {
-        homeViewModel.observeFavMeals().observe(this) { mealList ->
+        homeViewModel.favoritesMeals.observe(this) { mealList ->
             mealList.forEach {
                 if (it.idMeal == mealId) {
                     isFav = true
@@ -80,9 +91,9 @@ class MealsActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeMeal() = viewModel.observeMealById().observe(this) {
+    private fun observeMeal() = viewModel.mealDetail.observe(this) {
         this.meal = it
-        meal?.let { mealF ->
+        meal.let { mealF ->
             bind.category.text = "Category:  ${mealF.strCategory}"
             bind.location.text = "Location:  ${mealF.strArea}"
             bind.description.text = mealF.strInstructions

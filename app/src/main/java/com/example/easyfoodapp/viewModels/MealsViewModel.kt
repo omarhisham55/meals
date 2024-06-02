@@ -18,10 +18,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MealsViewModel @Inject constructor(
-    private val getMealByIdUseCase: GetMealByIdUseCase,
-    private val localUseCase: LocalUseCase
+    private val getMealByIdUseCase: GetMealByIdUseCase, private val localUseCase: LocalUseCase
 ) : ViewModel() {
     private var _mealDetail = MutableLiveData<Meal>()
+    val mealDetail: LiveData<Meal> get() = _mealDetail
+
     fun getMealById(id: String) = viewModelScope.launch {
         getMealByIdUseCase(id).enqueue(object : Callback<MealsList> {
             override fun onResponse(call: Call<MealsList>, response: Response<MealsList>) {
@@ -36,8 +37,6 @@ class MealsViewModel @Inject constructor(
             }
         })
     }
-
-    fun observeMealById(): LiveData<Meal> = _mealDetail
 
     fun addMealToFavorites(meal: Meal) {
         viewModelScope.launch {

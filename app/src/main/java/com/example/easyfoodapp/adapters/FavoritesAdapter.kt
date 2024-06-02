@@ -20,6 +20,9 @@ class FavoritesAdapter(
     private var items = listOf<Meal>()
     lateinit var onItemClick: (Meal) -> Unit
     lateinit var onFavIconClick: (Meal) -> Unit
+    val getMeal: (position: Int) -> Meal
+        get() = { position -> items[position] }
+
 
 //    private val diff = object : DiffUtil.ItemCallback<Meal>() {
 //        override fun areItemsTheSame(
@@ -37,7 +40,7 @@ class FavoritesAdapter(
 //    val differ = AsyncListDiffer(this, diff)
 
     fun setItems(items: List<Meal>) {
-        this.items = items
+        this.items = items.reversed()
         //for changing the whole list
         //if you want to a specific change use notifyItemChanged(position)
         notifyDataSetChanged()/*other notifiers {

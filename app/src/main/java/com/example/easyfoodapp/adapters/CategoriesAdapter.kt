@@ -8,10 +8,10 @@ import com.example.domain.entites.categoryEntity.Category
 import com.example.easyfoodapp.databinding.CategoryItemBinding
 
 class CategoriesAdapter() : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
-    private var items = ArrayList<Category>()
+    private var items: List<Category> = ArrayList()
     lateinit var onItemClick: ((Category) -> Unit)
 
-    fun setItems(items: ArrayList<Category>) {
+    fun setItems(items: List<Category>) {
         this.items = items
         //for changing the whole list
         //if you want to a specific change use notifyItemChanged(position)

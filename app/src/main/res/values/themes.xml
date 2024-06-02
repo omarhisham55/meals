@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:statusBarColor" targetApi="l">?attr/colorAccent</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
     <style name="Theme.EasyFoodApp" parent="Base.Theme.EasyFoodApp" />
 </resources>
