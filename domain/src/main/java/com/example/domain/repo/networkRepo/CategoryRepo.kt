@@ -1,8 +1,8 @@
 package com.example.domain.repo.networkRepo
 
-import com.example.domain.entites.categoryEntity.CategoryList
-import retrofit2.Call
+import androidx.lifecycle.MutableLiveData
+import com.example.domain.entites.categoryEntity.Category
 
 interface CategoryRepo {
-    suspend fun getCategories() : Call<CategoryList>
+    suspend fun getCategories() : MutableLiveData<List<Category>>
 }

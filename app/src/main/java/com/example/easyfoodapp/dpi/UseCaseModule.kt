@@ -5,9 +5,11 @@ import com.example.domain.repo.networkRepo.CategoryRepo
 import com.example.domain.repo.networkRepo.MealRepoById
 import com.example.domain.repo.networkRepo.PopularItemRepo
 import com.example.domain.repo.networkRepo.RandomMealRepo
+import com.example.domain.repo.networkRepo.SearchRepo
 import com.example.domain.usecase.localUseCases.LocalUseCase
 import com.example.domain.usecase.networkUseCases.GetCategoryUseCase
 import com.example.domain.usecase.networkUseCases.GetMealByIdUseCase
+import com.example.domain.usecase.networkUseCases.GetMealBySearchUseCase
 import com.example.domain.usecase.networkUseCases.GetRandomMealUseCase
 import com.example.domain.usecase.networkUseCases.GetPopularMealsUseCase
 import dagger.Module
@@ -41,5 +43,10 @@ object UseCaseModule {
     @Provides
     fun provideLocalUseCaseModule(localRepo: LocalRepo): LocalUseCase {
         return LocalUseCase(localRepo)
+    }
+
+    @Provides
+    fun provideMealBySearchUseCase(searchRepo: SearchRepo): GetMealBySearchUseCase {
+        return GetMealBySearchUseCase(searchRepo)
     }
 }

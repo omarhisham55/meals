@@ -1,8 +1,8 @@
 package com.example.domain.repo.networkRepo
 
-import com.example.domain.entites.mealsByCategoryEntity.MealsByCategoryList
-import retrofit2.Call
+import androidx.lifecycle.MutableLiveData
+import com.example.domain.entites.mealsByCategoryEntity.MealsByCategory
 
 interface PopularItemRepo {
-    suspend fun getPopularMeals(categoryName:String) : Call<MealsByCategoryList>
+    suspend fun getPopularMeals(categoryName:String) : MutableLiveData<List<MealsByCategory>>
 }

@@ -1,8 +1,8 @@
 package com.example.domain.repo.networkRepo
 
-import com.example.domain.entites.mealEntity.MealsList
-import retrofit2.Call
+import androidx.lifecycle.MutableLiveData
+import com.example.domain.entites.mealEntity.Meal
 
 interface RandomMealRepo {
-    suspend fun getRandomMealFromNetwork(): Call<MealsList>
+    suspend fun getRandomMealFromNetwork(): MutableLiveData<Meal>
 }

@@ -7,11 +7,13 @@ import com.example.data.repo.netwrokRepos.CategoryRepoImpl
 import com.example.data.repo.netwrokRepos.MealRepoByIdImpl
 import com.example.data.repo.netwrokRepos.PopularMealsRepoImpl
 import com.example.data.repo.netwrokRepos.RandomMealRepoImpl
+import com.example.data.repo.netwrokRepos.SearchRepoImpl
 import com.example.domain.repo.localRepo.LocalRepo
 import com.example.domain.repo.networkRepo.CategoryRepo
 import com.example.domain.repo.networkRepo.MealRepoById
 import com.example.domain.repo.networkRepo.PopularItemRepo
 import com.example.domain.repo.networkRepo.RandomMealRepo
+import com.example.domain.repo.networkRepo.SearchRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,5 +45,10 @@ object RepoModule {
     @Provides
     fun provideLocalRepoModule(db: MealDatabase): LocalRepo {
         return LocalRepoImpl(db)
+    }
+
+    @Provides
+    fun provideMealBySearchRepo(apiService: ApiService): SearchRepo {
+        return SearchRepoImpl(apiService)
     }
 }

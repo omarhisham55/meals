@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import android.widget.ListAdapter
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.domain.entites.mealsByCategoryEntity.MealsByCategory
@@ -58,7 +57,7 @@ class CategoriesListActivity : AppCompatActivity() {
     }
 
     private fun observeCategoryList() {
-        viewModel.observeItems().observe(this) {
+        viewModel.categoryItems.observe(this) {
             categoryListAdapter.setItems(it as ArrayList<MealsByCategory>)
             initCategoryRecyclerView()
             onResponse()
@@ -67,7 +66,8 @@ class CategoriesListActivity : AppCompatActivity() {
 
     private fun setTitleInViews() {
         viewModel.getCategoryList(categoryName)
-        bind.categoryGridviewTitle.text = "$categoryName : $categoryCount"
+        bind.categoryGridviewTitle.text =
+            getString(R.string.category_title_with_amount, categoryName, categoryCount)
     }
 
     private fun getCategoryInfoFromIntent() {

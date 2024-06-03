@@ -1,8 +1,8 @@
 package com.example.domain.repo.networkRepo
 
-import com.example.domain.entites.mealEntity.MealsList
-import retrofit2.Call
+import androidx.lifecycle.MutableLiveData
+import com.example.domain.entites.mealEntity.Meal
 
 interface MealRepoById {
-    suspend fun getMealById(id: String): Call<MealsList>
+    suspend fun getMealById(id: String): MutableLiveData<Meal>
 }

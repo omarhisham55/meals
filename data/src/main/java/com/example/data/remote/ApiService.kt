@@ -11,12 +11,15 @@ interface ApiService {
     @GET("random.php")
     fun getRandomMeal(): Call<MealsList>
 
-    @GET("lookup.php?")
+    @GET("lookup.php")
     fun getMealById(@Query("i") id: String): Call<MealsList>
 
-    @GET("filter.php?")
+    @GET("filter.php")
     fun getPopularItems(@Query("c") categoryName: String): Call<MealsByCategoryList>
 
     @GET("categories.php")
-    fun getCategories() : Call<CategoryList>
+    fun getCategories(): Call<CategoryList>
+
+    @GET("search.php")
+    fun getMealyBySearch(@Query("s") query: String): Call<MealsList>
 }
