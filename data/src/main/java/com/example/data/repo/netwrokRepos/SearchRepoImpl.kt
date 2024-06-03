@@ -18,7 +18,6 @@ class SearchRepoImpl(private val apiService: ApiService) : SearchRepo {
             override fun onResponse(call: Call<MealsList>, response: Response<MealsList>) {
                 response.body()?.let { meals ->
                     _searchList.value = meals
-                    Log.d("zaza search", _searchList.value?.meals?.size.toString())
                 }
             }
 

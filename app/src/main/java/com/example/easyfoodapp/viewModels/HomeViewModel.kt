@@ -15,6 +15,7 @@ import com.example.domain.usecase.networkUseCases.GetMealBySearchUseCase
 import com.example.domain.usecase.networkUseCases.GetPopularMealsUseCase
 import com.example.domain.usecase.networkUseCases.GetRandomMealUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -46,13 +47,29 @@ class HomeViewModel @Inject constructor(
 
 
     //get random meal
-    fun getRandomMeal() = viewModelScope.launch {
-        _randomMeal = getRandomMealUseCase()
+    private var _saveStateRandomMeal: Meal? = null
+    fun getRandomMeal() {
+        viewModelScope.launch {
+            _saveStateRandomMeal?.let {
+                _randomMeal.postValue(it)
+                return@let
+            }
+            _randomMeal = getRandomMealUseCase()
+            _saveStateRandomMeal = _randomMeal.value
+        }
     }
 
     //get popular meals
-    fun getPopularMeals(category: String = "Seafood") = viewModelScope.launch {
-        _popularMeals = getPopularMealsUseCase(category)
+    private var _saveStatePopularMeals: List<MealsByCategory>? = null
+    fun getPopularMeals(category: String = "Seafood") {
+        viewModelScope.launch {
+            _saveStatePopularMeals?.let {
+                _popularMeals.postValue(it)
+                return@let
+            }
+            _popularMeals = getPopularMealsUseCase(category)
+            _saveStatePopularMeals = _popularMeals.value
+        }
     }
 
     //get categories

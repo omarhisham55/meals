@@ -1,7 +1,6 @@
 package com.example.easyfoodapp.activities
 
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,17 +10,15 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.example.domain.entites.mealEntity.Meal
-import com.example.easyfoodapp.R
 import com.example.easyfoodapp.databinding.ActivityMealsBinding
 import com.example.easyfoodapp.fragments.HomeFragment
 import com.example.easyfoodapp.viewModels.HomeViewModel
 import com.example.easyfoodapp.viewModels.MealsViewModel
-import com.google.android.material.appbar.CollapsingToolbarLayout.TitleCollapseMode
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MealsActivity : AppCompatActivity() {
-    val viewModel: MealsViewModel by viewModels()
+    private val viewModel: MealsViewModel by viewModels()
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var bind: ActivityMealsBinding
     private lateinit var mealId: String

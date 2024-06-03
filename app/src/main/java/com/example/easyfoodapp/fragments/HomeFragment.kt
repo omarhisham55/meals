@@ -9,12 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.domain.entites.categoryEntity.Category
 import com.example.domain.entites.mealsByCategoryEntity.MealsByCategory
 import com.example.domain.entites.mealEntity.Meal
+import com.example.easyfoodapp.R
 import com.example.easyfoodapp.activities.CategoriesListActivity
 import com.example.easyfoodapp.activities.MainActivity
 import com.example.easyfoodapp.viewModels.HomeViewModel
@@ -72,6 +74,14 @@ class HomeFragment : Fragment() {
         viewModel.getCategories()
         observeCategories()
         onCategoryClick()
+
+        onSearchIconClick()
+    }
+
+    private fun onSearchIconClick() {
+        bind.imgSearch.setOnClickListener {
+            findNavController().navigate(R.id.searchFragment)
+        }
     }
 
     private fun initPopularItemsRecyclerView() {
